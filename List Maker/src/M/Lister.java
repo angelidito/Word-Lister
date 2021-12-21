@@ -32,7 +32,7 @@ public class Lister {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				throw new Exception("No se ha podido encontrado ni podido crear el archivo " + file.getAbsolutePath()
+				throw new IOException("No se ha podido encontrado ni podido crear el archivo " + file.getAbsolutePath()
 						+ "\n" + e.toString());
 			}
 			return;
@@ -47,10 +47,10 @@ public class Lister {
 			buff.close();
 			fReader.close();
 		} catch (FileNotFoundException e) {
-			throw new Exception("No se ha cargado nada al arrayList ya que no existe el archivo fuente.");
+			throw new FileNotFoundException("No se ha cargado nada al arrayList ya que no existe el archivo fuente.");
 
 		} catch (IOException e) {
-			throw new Exception("Algo ha ido ma al leer el archivo " + file.getAbsolutePath() + "\n" + e.toString());
+			throw new IOException("Algo ha ido ma al leer el archivo " + file.getAbsolutePath() + "\n" + e.toString());
 		}
 	}
 
@@ -67,12 +67,6 @@ public class Lister {
 			capitalize(word);
 			list.add(index, word);
 		}
-		try {
-			save(word.getLang());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return index;
 	}
 
@@ -88,6 +82,17 @@ public class Lister {
 
 	}
 
+	/**
+	 * Returns the position where the word shoud be at on the list.
+	 * 
+	 * If the word is in the list, -1 will be returned if the word is already on the
+	 * list.
+	 * 
+	 * @param list List to check on.
+	 * @param word Word to check.
+	 * @return The position the word should be at on the list, or -1 if it is
+	 *         already on it.
+	 */
 	private static int findPosition(ArrayList<Word> list, Word word) {
 		int index = 0;
 		int compareResult = -1;
@@ -104,6 +109,13 @@ public class Lister {
 		return index;
 	}
 
+	/**
+	 * Same as String.compareTo, but ingoring case and Spanish tildes and accents.
+	 * 
+	 * @param s1
+	 * @param s2
+	 * @return
+	 */
 	public static int compareStrings(String s1, String s2) {
 
 		s1 = s1.toLowerCase();
@@ -129,9 +141,15 @@ public class Lister {
 		}
 	}
 
+	/**
+	 * Returns the input string but with no accents nor tildes.
+	 * 
+	 * @param str Input string.
+	 * @return The input string but with no accents nor tildes.
+	 */
 	private static String noTildes(String str) {
-		String original = "áéíóú";
-		String ascii = "aeiou";
+		String original = "ÁÉÍÓÚÑáéíóúñ";
+		String ascii = "AEIOUÑaeiouñ";
 		String output = str;
 
 		for (int i = 0; i < original.length(); i++) {
@@ -140,6 +158,11 @@ public class Lister {
 		return output;
 	}
 
+	/**
+	 * Capitalice a Word.
+	 * 
+	 * @param word Word to capitalize.
+	 */
 	private void capitalize(Word word) {
 		String output = word.getWord();
 
@@ -147,24 +170,22 @@ public class Lister {
 		word.setWord(output);
 	}
 
-	public void addWords(String possibleWords, LANG lang) {
-		String[] possibleWordsArray = possibleWords.split(";");
-
-		for (String word : possibleWordsArray) {
+	public void addWords(String[] wordArray, LANG lang) {
+		for (String word : wordArray) {
 			word = word.trim();
-			if (word.compareTo("") == 0)
+			if (word.equals(""))
 				continue;
 			addWord(new Word(word, lang));
 		}
 	}
 
-	public void save(LANG lang) throws Exception {
+	public void save(LANG lang) throws IOException {
 		File file = new File(getFilePath(lang));
 
 		try {
 			file.createNewFile();
 		} catch (IOException e) {
-			throw new Exception(String.format("Error al crear el archivo %s", file.getAbsolutePath()));
+			throw new IOException(String.format("Error al crear el archivo %s", file.getAbsolutePath()));
 		}
 		try {
 			FileWriter fWriter = new FileWriter(file);
@@ -177,7 +198,7 @@ public class Lister {
 				fWriter.append(wordList.get(index++).getWord() + "\n");
 			fWriter.close();
 		} catch (IOException e) {
-			throw new Exception(e.toString());
+			throw new IOException(e.toString());
 		}
 	}
 

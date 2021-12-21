@@ -14,11 +14,9 @@ public class MenuDisplay extends Display {
 		println("\t1. Añadir");
 		// println("\t2. Definir");
 		// println("\t3. Traducir");
-		println("\t4. Guardar y abrir archivo");
-		println("\t8. Guardar y cambiar de idioma");
-		println("\t9. Guardar");
-		println("\t0. Guardar y salir");
-		println("\t-1. Salir sin guardar");
+		println("\t4. Abrir archivo");
+		println("\t9. Cambiar de idioma");
+		println("\t0. Salir");
 		println("");
 	}
 

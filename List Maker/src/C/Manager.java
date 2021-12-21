@@ -47,36 +47,26 @@ public class Manager {
 		do {
 			MenuDisplay.mainMenu(lang, lister.getList(lang).size());
 			op = Scanner.readInt();
-
 			switch (op) {
 				case 1:
 					addMenu();
 					break;
 				case 4:
-					saveData();
 					open(new File(lister.getFilePath(lang)));
 					break;
-				case 8:
+				case 9:
 					op = 0;
-					saveData();
 					lang = LANG.UNKNOWN;
 					break;
-				case 9:
-					saveData();
-					break;
 				case 0:
-					saveData();
-				case -1:
 					exit = true;
 					break;
-				case -99:
-					lister.clean(lang);
-
+				// case -99:
+				// lister.clean(lang);
 				default:
 					break;
 			}
-
-		} while (op != -1 && op != 0);
+		} while (op != 0);
 
 		return exit;
 	}
@@ -84,7 +74,7 @@ public class Manager {
 	private static void saveData() {
 		try {
 			lister.save(lang);
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -105,10 +95,11 @@ public class Manager {
 		MenuDisplay.addMenu(lang);
 		do {
 			possibleWords = Scanner.readLine();
-			if (possibleWords.compareToIgnoreCase("!salir") == 0)
+			if (possibleWords.equalsIgnoreCase("!salir") || possibleWords.equalsIgnoreCase("!exit"))
 				exit = true;
 			else {
-				lister.addWords(possibleWords, lang);
+				lister.addWords(possibleWords.split(";"), lang);
+				saveData();
 				MenuDisplay.wordHasBeenAdded();
 			}
 		} while (!exit);
