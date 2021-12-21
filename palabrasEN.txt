@@ -47,6 +47,7 @@ Crutch
 Cub
 Cunning
 Deed
+Department store
 Deprive
 Distrust
 Distrustful
@@ -215,8 +216,10 @@ Tantrum
 Taunts
 Tear
 The latter... the former
+Thine
 Throuple
 Thump
+Thy
 Tinderbox
 Tissue
 To slight
