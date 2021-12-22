@@ -10,7 +10,7 @@ public class Word {
 	}
 
 	public Word(String word, LANG lang) {
-		this.word = word.toLowerCase();
+		this.word = word.toLowerCase().trim();
 		this.lang = lang;
 	}
 
@@ -23,7 +23,7 @@ public class Word {
 	}
 
 	public void setWord(String word) {
-		this.word = word;
+		this.word = word.trim();
 	}
 
 	public String getInfo() {

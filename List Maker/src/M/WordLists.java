@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import M.Word.LANG;
 
 /**
- * TODO: in order to meke the lists (almost) read only, they shold be at their
- * own class.
+ * Lists of words.
+ * This way, a mess cannot be made by removing or adding wrong data.
  */
 public class WordLists {
 
-	private static ArrayList<Word> ESList;
-	private static ArrayList<Word> ENList;
+	private static ArrayList<Word> ESList = new ArrayList<Word>();
+	private static ArrayList<Word> ENList = new ArrayList<Word>();
 
 	public static void add(int index, Word word) {
-		getList(word.getLang()).add(word)
+		getList(word.getLang()).add(word);
 	}
 
-	public ArrayList<Word> getList(LANG lang) {
+	public static ArrayList<Word> getList(LANG lang) {
 		switch (lang) {
 			case ES:
 				return ESList;

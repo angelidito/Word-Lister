@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 
 import M.Lister;
+import M.WordLists;
 import M.Word.LANG;
 import V.ErrorDisplay;
 import V.MenuDisplay;
@@ -32,6 +33,7 @@ public class Manager {
 				exit = mainMenu();
 			} catch (Exception e) {
 				ErrorDisplay.newError(e.toString() + "\n Se va a finalizar el programa.");
+				e.printStackTrace();
 				exit = true;
 			}
 		} while (!exit);
@@ -45,7 +47,7 @@ public class Manager {
 		int op = -99;
 
 		do {
-			MenuDisplay.mainMenu(lang, lister.getList(lang).size());
+			MenuDisplay.mainMenu(lang, WordLists.getList(lang).size());
 			op = Scanner.readInt();
 			switch (op) {
 				case 1:
@@ -85,6 +87,7 @@ public class Manager {
 		} catch (IOException e) {
 			ErrorDisplay.newError("FILE COULD NOT BE OPENED.");
 			ErrorDisplay.newError(e.toString());
+			e.printStackTrace();
 		}
 	}
 
@@ -116,6 +119,7 @@ public class Manager {
 		} catch (IOException e) {
 			ErrorDisplay.newError("BROWSER COULD NOT BE OPENED.");
 			ErrorDisplay.newError(e.toString());
+			e.printStackTrace();
 		}
 	}
 }
