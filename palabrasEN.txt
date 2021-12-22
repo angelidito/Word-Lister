@@ -2,25 +2,30 @@ Alley
 Amends
 Anew
 Apron
+Ballsack
 Batter
 Beanpole
+Bedlam
 Begrudge
 Behead
 Bellow
 Biased
 Bind
 Bliss
+Bloated
 Bluff
 Bog
 Bollock
 Bollocks
 Bow
+Brat
 Brazenly
 Bruise
 Bud
 Bungle
 Burden
 Bush dive
+Buttock
 Buxom
 Carnage
 Carve
@@ -46,7 +51,9 @@ Crummy
 Crutch
 Cub
 Cunning
+Daresay
 Deed
+Defector
 Department store
 Deprive
 Distrust
@@ -89,9 +96,11 @@ Graze
 Gritty
 Grog
 Grudge
+Grump
 Gust
 Guzzle
 Hallow
+Hangover
 Hatred
 Havoc
 Hawker
@@ -99,10 +108,12 @@ Hazy
 Heap
 Hella
 Hiding
+Hoot
 Humble
 Hunch
 Hut
 Indeed
+Jab
 Jangle
 Jaywalking
 Jest
@@ -119,6 +130,7 @@ Lair
 Lass
 Lewd
 Loath
+Lodge
 Lodging
 Looming
 Lurk
@@ -127,7 +139,10 @@ Mead
 Measles
 Meek
 Midst
+Munted
+Munter
 Murmur
+Muster
 Musty
 Mutt
 Naive
@@ -139,7 +154,9 @@ Nod off
 Nonetheless
 Numb
 Numbskull
+Numpty
 Nuzzle
+Oaf
 Obnoxiously
 Ogle
 Omen
@@ -152,6 +169,7 @@ Perch
 Peripheral
 Pheasant
 Pit boss
+Plead
 Pledge
 Ply
 Poke
@@ -167,8 +185,10 @@ Rattle
 Ravenous
 Reckon
 Reek
+Rehearse
 Relapse
 Roach
+Rot
 Ruthless
 Sash
 Scathe
@@ -181,6 +201,7 @@ Sham
 Shatter
 Shed
 Sheesh
+Shite
 Shiver
 Shudder
 Sidekick
@@ -188,8 +209,10 @@ Sigh
 Silk
 Skank
 Skim
+Slay
 Slit
 Slob
+Slog
 Snarl
 Sorcerer
 Sorceress
@@ -203,6 +226,8 @@ Starch
 Startle
 Steer
 Stem
+Ster
+Stern
 Stir
 Stop fidgeting
 Strain
@@ -211,6 +236,7 @@ Stub
 Stubborn
 Stumble
 Sullen
+Sway
 Tad
 Tantrum
 Taunts
@@ -227,6 +253,7 @@ Top of
 Topple
 Totes
 Traitorous
+Treachery
 Treacly
 Tuck
 Tusk
@@ -253,6 +280,7 @@ Woo
 Wrath
 Wreak
 Wreak havoc
+Yap
 Yearn
 Yeast
 Yoke

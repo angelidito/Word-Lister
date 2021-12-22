@@ -32,6 +32,7 @@ public class Lister {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
+				e.printStackTrace();
 				throw new IOException("No se ha podido encontrado ni podido crear el archivo " + file.getAbsolutePath()
 						+ "\n" + e.toString());
 			}
@@ -43,31 +44,22 @@ public class Lister {
 			String word;
 
 			while ((word = buff.readLine()) != null)
-				addWord(new Word(word, lang));
+				if (!word.isEmpty())
+					addWord(new Word(word, lang));
 			buff.close();
 			fReader.close();
 		} catch (FileNotFoundException e) {
 			throw new FileNotFoundException("No se ha cargado nada al arrayList ya que no existe el archivo fuente.");
 
 		} catch (IOException e) {
-			throw new IOException("Algo ha ido ma al leer el archivo " + file.getAbsolutePath() + "\n" + e.toString());
+			e.printStackTrace();
+			throw new IOException("Algo ha ido ma al leer el archivo " + file.getAbsolutePath() + "\n"
+					+ e.toString());
 		}
 	}
 
 	public String getFilePath(LANG lang) {
 		return String.format(listFilesPathFormat, lang);
-	}
-
-	public int addWord(Word word) {
-		int index;
-		ArrayList<Word> list = getList(word.getLang());
-
-		index = findPosition(list, word);
-		if (index != -1) {
-			capitalize(word);
-			list.add(index, word);
-		}
-		return index;
 	}
 
 	public ArrayList<Word> getList(LANG lang) {
@@ -80,33 +72,6 @@ public class Lister {
 				return null;
 		}
 
-	}
-
-	/**
-	 * Returns the position where the word shoud be at on the list.
-	 * 
-	 * If the word is in the list, -1 will be returned if the word is already on the
-	 * list.
-	 * 
-	 * @param list List to check on.
-	 * @param word Word to check.
-	 * @return The position the word should be at on the list, or -1 if it is
-	 *         already on it.
-	 */
-	private static int findPosition(ArrayList<Word> list, Word word) {
-		int index = 0;
-		int compareResult = -1;
-
-		while (index < list.size() && compareResult < 0) {
-			// compareResult =
-			// list.get(index).getWord().compareToIgnoreCase(word.getWord());
-			compareResult = compareStrings(list.get(index).getWord(), word.getWord());
-			if (compareResult == 0)
-				index = -1;
-			else if (compareResult < 0)
-				index++;
-		}
-		return index;
 	}
 
 	/**
@@ -166,17 +131,76 @@ public class Lister {
 	private void capitalize(Word word) {
 		String output = word.getWord();
 
-		output = output.substring(0, 1).toUpperCase() + output.substring(1).toLowerCase();
+		if (output.length() < 2)
+			output = output.toUpperCase();
+		else
+			output = output.substring(0, 1).toUpperCase() + output.substring(1).toLowerCase();
 		word.setWord(output);
 	}
 
-	public void addWords(String[] wordArray, LANG lang) {
+	/**
+	 * Returns the position where the word shoud be at on the list.
+	 * 
+	 * If the word is in the list, -1 will be returned if the word is already on the
+	 * list.
+	 * 
+	 * @param list List to check on.
+	 * @param word Word to check.
+	 * @return The position the word should be at on the list, or -1 if it is
+	 *         already on it.
+	 */
+	private static int findPosition(ArrayList<Word> list, Word word) {
+		int index = 0;
+		int compareResult = -1;
+
+		while (index < list.size() && compareResult < 0) {
+			// if (list.size() >= 249 && index >= list.size() - 2)
+			// index = index + 1 - 1;
+			// compareResult =
+			// list.get(index).getWord().compareToIgnoreCase(word.getWord());
+			if (word.getWord().equalsIgnoreCase("jab"))
+				index = index + 1 - 1;
+
+			compareResult = compareStrings(list.get(index).getWord(), word.getWord());
+			if (compareResult == 0)
+				index = -1;
+			else if (compareResult < 0)
+				index++;
+		}
+		return index;
+	}
+
+	public int addWord(Word word) {
+		int index;
+		ArrayList<Word> list = WordLists.getList(word.getLang());
+
+		index = findPosition(list, word);
+		if (index != -1) {
+			capitalize(word);
+			WordLists.add(index, word);
+		}
+		return index;
+	}
+
+	/**
+	 * Add the
+	 * 
+	 * @param wordArray
+	 * @param lang
+	 * @return
+	 */
+	public int addWords(String[] wordArray, LANG lang) {
+		int addedWords = 0;
 		for (String word : wordArray) {
 			word = word.trim();
 			if (word.equals(""))
 				continue;
-			addWord(new Word(word, lang));
+
+			int result = addWord(new Word(word, lang));
+			if (result != -1)
+				addedWords++;
 		}
+		return addedWords;
 	}
 
 	public void save(LANG lang) throws IOException {
@@ -189,7 +213,7 @@ public class Lister {
 		}
 		try {
 			FileWriter fWriter = new FileWriter(file);
-			ArrayList<Word> wordList = getList(lang);
+			ArrayList<Word> wordList = WordLists.getList(lang);
 			int size = wordList.size();
 			int index = 0;
 
@@ -198,6 +222,7 @@ public class Lister {
 				fWriter.append(wordList.get(index++).getWord() + "\n");
 			fWriter.close();
 		} catch (IOException e) {
+			e.printStackTrace();
 			throw new IOException(e.toString());
 		}
 	}

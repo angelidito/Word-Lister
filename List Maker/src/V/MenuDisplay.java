@@ -34,9 +34,15 @@ public class MenuDisplay extends Display {
 		println("Lang: " + lang);
 	}
 
-	public static void wordHasBeenAdded() {
+	public static void wordHasBeenAdded(int addedWords) {
 		println();
-		println("Añadido.");
+		if (addedWords == 1)
+			println("Se ha añadido una (1) palabra.");
+		else if (addedWords > 1)
+			println("Se han añadido " + addedWords + " palabras.");
+		else
+			println("Ninguna palabra nueva.");
+		println();
 		println();
 	}
 

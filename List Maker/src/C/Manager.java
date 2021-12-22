@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 
 import M.Lister;
+import M.WordLists;
 import M.Word.LANG;
 import V.ErrorDisplay;
 import V.MenuDisplay;
@@ -32,6 +33,7 @@ public class Manager {
 				exit = mainMenu();
 			} catch (Exception e) {
 				ErrorDisplay.newError(e.toString() + "\n Se va a finalizar el programa.");
+				e.printStackTrace();
 				exit = true;
 			}
 		} while (!exit);
@@ -45,7 +47,7 @@ public class Manager {
 		int op = -99;
 
 		do {
-			MenuDisplay.mainMenu(lang, lister.getList(lang).size());
+			MenuDisplay.mainMenu(lang, WordLists.getList(lang).size());
 			op = Scanner.readInt();
 			switch (op) {
 				case 1:
@@ -85,23 +87,29 @@ public class Manager {
 		} catch (IOException e) {
 			ErrorDisplay.newError("FILE COULD NOT BE OPENED.");
 			ErrorDisplay.newError(e.toString());
+			e.printStackTrace();
 		}
 	}
 
 	private static void addMenu() {
-		String possibleWords = "";
+		String inputLine = "";
 		boolean exit = false;
+		String[] wordArray;
+		int addedWords;
 
 		MenuDisplay.addMenu(lang);
 		do {
-			possibleWords = Scanner.readLine();
-			if (possibleWords.equalsIgnoreCase("!salir") || possibleWords.equalsIgnoreCase("!exit"))
+			inputLine = Scanner.readLine();
+			if (inputLine.equalsIgnoreCase("!salir") || inputLine.equalsIgnoreCase("!exit"))
 				exit = true;
-			else {
-				lister.addWords(possibleWords.split(";"), lang);
+			else if (!inputLine.isEmpty() && !inputLine.isBlank()) {
+				wordArray = inputLine.split(";");
+				addedWords = lister.addWords(wordArray, lang);
 				saveData();
-				MenuDisplay.wordHasBeenAdded();
-			}
+
+				MenuDisplay.wordHasBeenAdded(addedWords);
+			} else
+				ErrorDisplay.newError("No input detected\n");
 		} while (!exit);
 	}
 
@@ -116,6 +124,7 @@ public class Manager {
 		} catch (IOException e) {
 			ErrorDisplay.newError("BROWSER COULD NOT BE OPENED.");
 			ErrorDisplay.newError(e.toString());
+			e.printStackTrace();
 		}
 	}
 }
