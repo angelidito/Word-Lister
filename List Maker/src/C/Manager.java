@@ -18,7 +18,7 @@ public class Manager {
 
 	public static void main(String[] args) {
 		Scanner.newInstance();
-		boolean exit = true;
+		boolean exit = false;
 
 		do {
 			if (lang == LANG.UNKNOWN) {
