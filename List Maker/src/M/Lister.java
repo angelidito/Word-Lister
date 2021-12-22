@@ -58,6 +58,30 @@ public class Lister {
 		return String.format(listFilesPathFormat, lang);
 	}
 
+	public int addWord(Word word) {
+		int index;
+		ArrayList<Word> list = getList(word.getLang());
+
+		index = findPosition(list, word);
+		if (index != -1) {
+			capitalize(word);
+			list.add(index, word);
+		}
+		return index;
+	}
+
+	public ArrayList<Word> getList(LANG lang) {
+		switch (lang) {
+			case ES:
+				return ESList;
+			case EN:
+				return ENList;
+			default:
+				return null;
+		}
+
+	}
+
 	/**
 	 * Returns the position where the word shoud be at on the list.
 	 * 
@@ -146,24 +170,6 @@ public class Lister {
 		word.setWord(output);
 	}
 
-	public int addWord(Word word) {
-		int index;
-		ArrayList<Word> list = getList(word.getLang());
-
-		index = findPosition(list, word);
-		if (index != -1) {
-			capitalize(word);
-			WordLists.add(index, word);
-		}
-		return index;
-	}
-
-	/**
-	 * Add the
-	 * 
-	 * @param wordArray
-	 * @param lang
-	 */
 	public void addWords(String[] wordArray, LANG lang) {
 		for (String word : wordArray) {
 			word = word.trim();
