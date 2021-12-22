@@ -75,8 +75,6 @@ public class Lister {
 		s2 = s2.toLowerCase();
 		s1 = noTildes(s1);
 		s2 = noTildes(s2);
-		// if (s1.equalsIgnoreCase("jab") || s2.equalsIgnoreCase("jab"))
-		System.out.println(s1 + " - " + s2);
 		for (int i = 0; i < s1.length() && i < s2.length(); i++) {
 			char c1 = s1.charAt(i);
 			char c2 = s2.charAt(i);
@@ -177,14 +175,20 @@ public class Lister {
 	 * 
 	 * @param wordArray
 	 * @param lang
+	 * @return
 	 */
-	public void addWords(String[] wordArray, LANG lang) {
+	public int addWords(String[] wordArray, LANG lang) {
+		int addedWords = 0;
 		for (String word : wordArray) {
 			word = word.trim();
 			if (word.equals(""))
 				continue;
-			addWord(new Word(word, lang));
+
+			int result = addWord(new Word(word, lang));
+			if (result != -1)
+				addedWords++;
 		}
+		return addedWords;
 	}
 
 	public void save(LANG lang) throws IOException {

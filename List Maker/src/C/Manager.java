@@ -92,19 +92,24 @@ public class Manager {
 	}
 
 	private static void addMenu() {
-		String possibleWords = "";
+		String inputLine = "";
 		boolean exit = false;
+		String[] wordArray;
+		int addedWords;
 
 		MenuDisplay.addMenu(lang);
 		do {
-			possibleWords = Scanner.readLine();
-			if (possibleWords.equalsIgnoreCase("!salir") || possibleWords.equalsIgnoreCase("!exit"))
+			inputLine = Scanner.readLine();
+			if (inputLine.equalsIgnoreCase("!salir") || inputLine.equalsIgnoreCase("!exit"))
 				exit = true;
-			else {
-				lister.addWords(possibleWords.split(";"), lang);
+			else if (!inputLine.isEmpty() && !inputLine.isBlank()) {
+				wordArray = inputLine.split(";");
+				addedWords = lister.addWords(wordArray, lang);
 				saveData();
-				MenuDisplay.wordHasBeenAdded();
-			}
+
+				MenuDisplay.wordHasBeenAdded(addedWords);
+			} else
+				ErrorDisplay.newError("No input detected\n");
 		} while (!exit);
 	}
 

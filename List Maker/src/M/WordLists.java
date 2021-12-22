@@ -14,7 +14,7 @@ public class WordLists {
 	private static ArrayList<Word> ENList = new ArrayList<Word>();
 
 	public static void add(int index, Word word) {
-		getList(word.getLang()).add(word);
+		getList(word.getLang()).add(index, word);
 	}
 
 	public static ArrayList<Word> getList(LANG lang) {
